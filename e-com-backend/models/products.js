@@ -1,4 +1,4 @@
-const { Schema, model, modelNames } = require("mongoose");
+const { Schema, model } = require("mongoose");
 const joi = require("joi");
 
 module.exports.Product = model(
@@ -14,10 +14,9 @@ module.exports.Product = model(
                 required: true,
             },
             quantity: Number,
-            //! ----- *** Important *** ---------
             photo: {
-                data: Buffer, //* Buffer means binary. It will convert the photos into binary the will store inside the data property.
-                contentType: String, //* The content type of the photo.
+                data: Buffer,
+                contentType: String,
             },
         },
         { timestamps: true }
@@ -25,12 +24,13 @@ module.exports.Product = model(
 );
 
 module.exports.validate = (product) => {
+    console.log("joi validation", product);
     const schema = joi.object({
         name: joi.string().min(3).max(255).required(),
         description: joi.string().max(2000).required(),
         price: joi.number().required(),
-        quantity: joi.number().required(),
         category: joi.string().required(),
+        quantity: joi.number().required(),
     });
     return schema.validate(product);
 };

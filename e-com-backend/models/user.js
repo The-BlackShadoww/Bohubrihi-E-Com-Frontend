@@ -47,6 +47,7 @@ userSchema.methods.generateJWT = function () {
 };
 
 const validateUser = (user) => {
+    console.log("Form user Schema",user);
     const schema = joi.object({
         name: joi.string().min(3).max(100).required(),
         email: joi.string().min(5).max(255).required(),

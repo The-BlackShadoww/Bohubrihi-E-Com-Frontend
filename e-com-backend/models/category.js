@@ -1,6 +1,5 @@
-const { Schema, model, modelNames } = require("mongoose");
+const { Schema, model } = require("mongoose");
 const joi = require("joi");
-
 
 module.exports.Category = model(
     "Category",
@@ -16,6 +15,7 @@ module.exports.Category = model(
 );
 
 module.exports.validate = (category) => {
+    console.log(category);
     const schema = joi.object({
         name: joi.string().min(3).max(50).required(),
     });
