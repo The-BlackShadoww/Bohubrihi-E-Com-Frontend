@@ -1,3 +1,4 @@
 {
-    "cSpell.words": ["maxlength", "middlewares", "signin"]
+    "cSpell.words": ["maxlength", "middlewares", "signin"],
+    "editor.fontSize": 16
 }

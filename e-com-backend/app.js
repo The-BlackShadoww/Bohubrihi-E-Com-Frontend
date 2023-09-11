@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const error = require("./middlewares/error");
 //! ---- Middlewares -----
-//* we don't have to write middlewares/index. Because by default it will call the index.js file. 
+//* we don't have to write middlewares/index. Because by default it will call the index.js file.
 require("./middlewares")(app);
 //! ----- Routers -----
 require("./middlewares/routes")(app);
