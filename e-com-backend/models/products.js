@@ -24,7 +24,7 @@ module.exports.Product = model(
 );
 
 module.exports.validate = (product) => {
-    console.log("joi validation", product);
+    // console.log("joi validation", product);
     const schema = joi.object({
         name: joi.string().min(3).max(255).required(),
         description: joi.string().max(2000).required(),
