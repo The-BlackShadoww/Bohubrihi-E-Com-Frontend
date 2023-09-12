@@ -1,0 +1,19 @@
+.btn {
+    background-color: rgb(201, 201, 201);
+    padding: 12px;
+    border-radius: 5px;
+    color: black;
+    margin: 0 15px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.activeBtn {
+    background-color: rgb(92, 92, 92);
+    padding: 12px;
+    border-radius: 5px;
+    color: white;
+    margin: 0 15px;
+    font-size: 20px;
+    font-weight: 500;
+}
