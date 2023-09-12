@@ -23,7 +23,6 @@ export const isAuthenticated = () => {
 export const userInfo = () => {
     const jwt = JSON.parse(localStorage.getItem("jwt"));
     const decoded = jwt_decode(jwt);
-    console.log(decoded);
     return { ...decoded, token: jwt };
 };
 

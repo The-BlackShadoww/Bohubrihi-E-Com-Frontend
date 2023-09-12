@@ -22,10 +22,10 @@ const AdminDashboard = () => {
                     </Typography>
                     <ul>
                         <li>
-                            <Link to="#">Create Category</Link>
+                            <Link to="/create/category">Create Category</Link>
                         </li>
                         <li>
-                            <Link to="#">Create Product</Link>
+                            <Link to="/create/product">Create Product</Link>
                         </li>
                     </ul>
                 </CardContent>

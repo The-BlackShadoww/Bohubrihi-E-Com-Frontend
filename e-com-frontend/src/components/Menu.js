@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import "./Menu.css";
 import { signOut, isAuthenticated } from "../utils/auth";
+import { userInfo } from "../utils/auth";
 
 const navLinks = [
     { name: "Home", href: "/" },
@@ -11,7 +12,8 @@ const navLinks = [
 ];
 const navLinks_2 = [
     { name: "Home", href: "/" },
-    { name: "Dashboard", href: "/user/dashboard" },
+    // { name: "Dashboard", href: "/user/dashboard" },
+    { name: "Dashboard", href: `/${userInfo().role}/dashboard` },
 ];
 
 //! What is useLocation hook in react ????
