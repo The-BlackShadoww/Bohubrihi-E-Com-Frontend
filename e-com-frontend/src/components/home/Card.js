@@ -10,7 +10,8 @@ import {
     Typography,
 } from "@mui/material";
 
-const ProductCard = ({ product }) => {
+//! MY CARD ----------------------------
+const ProductCard = ({ product, handleAddToCart }) => {
     const titleStyle = {
         display: "block",
         textOverflow: "ellipsis",
@@ -64,8 +65,11 @@ const ProductCard = ({ product }) => {
                     {product.quantity ? (
                         <>
                             &nbsp;
-                            <Button variant="contained" size="small">
-                                {" "}
+                            <Button
+                                variant="contained"
+                                size="small"
+                                onClick={handleAddToCart}
+                            >
                                 Add to Cart
                             </Button>
                         </>
