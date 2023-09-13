@@ -41,13 +41,13 @@ userSchema.methods.generateJWT = function () {
             name: this.name,
         },
         process.env.JWT_SECRET_KEY,
-        { expiresIn: "7d" }
+        { expiresIn: "1d" }
     );
     return token;
 };
 
 const validateUser = (user) => {
-    console.log("Form user Schema",user);
+    console.log("Form user Schema", user);
     const schema = joi.object({
         name: joi.string().min(3).max(100).required(),
         email: joi.string().min(5).max(255).required(),

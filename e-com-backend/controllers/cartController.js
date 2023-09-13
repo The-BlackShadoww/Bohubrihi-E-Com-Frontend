@@ -4,6 +4,9 @@ const { CartItem } = require("../models/cartItem");
 //! -------------- Creating Cart -------------
 module.exports.createCartItem = async (req, res) => {
     let { price, product } = _.pick(req.body, ["price", "product"]);
+
+    console.log("From CreateCart: ", price, product);
+    
     const item = await CartItem.findOne({
         user: req.user._id,
         product: product,
@@ -16,7 +19,7 @@ module.exports.createCartItem = async (req, res) => {
     });
     const result = await cartItem.save();
     res.status(201).send({
-        message: "Added to cart successfully",
+        message: "Cart added to mongoDB database",
         data: result,
     });
 };
