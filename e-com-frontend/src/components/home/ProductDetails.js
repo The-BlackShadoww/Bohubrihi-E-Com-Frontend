@@ -3,8 +3,10 @@ import Layout from "../Layout";
 import { API } from "../../utils/config";
 import { Link, useParams } from "react-router-dom";
 import { showSuccess, showError } from "../../utils/messages";
-import { Breadcrumbs, Typography } from "@mui/material";
+import { Breadcrumbs, Button, Typography } from "@mui/material";
 import { getProductDetails } from "../../api/apiProduct";
+import { addToCart } from "../../api/apiOrder";
+import { isAuthenticated, userInfo } from "../../utils/auth";
 
 const ProductDetails = (props) => {
     const { id } = useParams();
@@ -17,7 +19,31 @@ const ProductDetails = (props) => {
         getProductDetails(id)
             .then((response) => setProduct(response.data))
             .catch((err) => setError("Failed to load products"));
-    },[]);
+    }, []);
+
+    const handleAddToCart = (product) => () => {
+        if (isAuthenticated()) {
+            setError(false);
+            setSuccess(false);
+            const user = userInfo();
+            const cartItem = {
+                user: user._id,
+                product: product._id,
+                price: product.price,
+            };
+            addToCart(user.token, cartItem)
+                .then((reponse) => setSuccess(true))
+                .catch((err) => {
+                    //! ?????--------problem-------?????????
+                    console.log(err.response);
+                    if (err.response) setError(err.response.data);
+                    else setError("Adding to cart failed!");
+                });
+        } else {
+            setSuccess(false);
+            setError("Please Login First!");
+        }
+    };
 
     return (
         <Layout title="Product Page">
@@ -36,31 +62,43 @@ const ProductDetails = (props) => {
                 {showSuccess(success, "Item Added to Cart!")}
                 {showError(error, error)}
             </div>
-            <div>
-                <div className="">
+            <div className="flex p-5">
+                <div className="basis-3/4">
                     <img
                         src={`${API}/product/photo/${product._id}`}
                         alt={product.name}
                         width="100%"
                     />
                 </div>
-                <div>
-                    <h3>{product.name}</h3>
-                    <span style={{ fontSize: 20 }}>&#2547;</span>
-                    {product.price}{" "}
+                <div className="px-5 basis-1/4">
+                    <Typography variant="h5">{product.name}</Typography>
+                    <Typography variant="body1">
+                        &#2547;{product.price}
+                    </Typography>
                     <p>
                         {product.quantity ? (
-                            <span>In Stock</span>
+                            <span
+                                style={{
+                                    padding: 5,
+                                    backgroundColor: "orange",
+                                    borderRadius: 5,
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                In Stock
+                            </span>
                         ) : (
                             <span>Out of Stock</span>
                         )}
                     </p>
                     {product.quantity ? (
                         <>
-                            &nbsp;
-                            <button className="btn btn-outline-primary btn-md">
+                            <Button
+                                variant="contained"
+                                onClick={handleAddToCart(product)}
+                            >
                                 Add to Cart
-                            </button>
+                            </Button>
                         </>
                     ) : (
                         ""

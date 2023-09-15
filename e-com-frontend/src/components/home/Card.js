@@ -9,6 +9,7 @@ import {
     CardMedia,
     Typography,
 } from "@mui/material";
+import "./card.css";
 
 //! MY CARD ----------------------------
 const ProductCard = ({ product, handleAddToCart }) => {
@@ -21,19 +22,13 @@ const ProductCard = ({ product, handleAddToCart }) => {
         lineHeight: "1em",
     };
 
-    const imgStyle = {
-        height: 250,
-        objectFit: "cover",
-        objectPosition: "0px 0px",
-    };
-
     return (
-        <div>
-            <Card sx={{ maxWidth: 345 }}>
+        <div className="mb-10">
+            <Card sx={{ maxWidth: 340, maxHeight: 400 }}>
                 <img
                     src={`${API}/product/photo/${product._id}`}
                     alt={product.name}
-                    style={imgStyle}
+                    className="cardImg"
                 />
                 {/* <CardMedia
                     sx={{ imgStyle }}
@@ -50,7 +45,16 @@ const ProductCard = ({ product, handleAddToCart }) => {
                         <span>&#2547;</span>
                         {product.price}
                         {product.quantity ? (
-                            <span>In Stock</span>
+                            <span
+                                style={{
+                                    padding: 5,
+                                    backgroundColor: "orange",
+                                    borderRadius: 5,
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                In Stock
+                            </span>
                         ) : (
                             <span>Out of Stock</span>
                         )}

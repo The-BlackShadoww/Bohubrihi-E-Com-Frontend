@@ -6,15 +6,14 @@ import { showError, showSuccess } from "../../utils/messages";
 import {
     getCategories,
     getProducts,
-    getProductDetails,
     getFilteredProducts,
 } from "../../api/apiProduct";
-import { Typography } from "@mui/material";
 import CheckBox from "./CheckBox";
 import RadioBox from "./RadioBox";
 import { prices } from "../../utils/prices";
 import { isAuthenticated, userInfo } from "../../utils/auth";
 import { addToCart } from "../../api/apiOrder";
+import { Grid, Typography } from "@mui/material";
 
 //! MY HOME ---------------
 const Home = () => {
@@ -54,6 +53,8 @@ const Home = () => {
             addToCart(user.token, cartItem)
                 .then((reponse) => setSuccess(true))
                 .catch((err) => {
+                    //! ?????????????? 
+                    console.log(err.response);
                     if (err.response) setError(err.response.data);
                     else setError("Adding to cart failed!");
                 });
@@ -86,10 +87,12 @@ const Home = () => {
 
     const showFilters = () => {
         return (
-            <>
-                <div className="">
-                    <div className="">
-                        <h5>Filter By Categories:</h5>
+            <div className="mb-10">
+                <Grid container>
+                    <Grid item xs={6}>
+                        <Typography variant="h5">
+                            Filter By Categories:
+                        </Typography>
                         <ul>
                             {/* {JSON.stringify(categories)} */}
                             <CheckBox
@@ -100,9 +103,10 @@ const Home = () => {
                             />
                         </ul>
                         {/* {JSON.stringify(filters)} */}
-                    </div>
-                    <div className="">
-                        <h5>Filter By Price:</h5>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="h5">Filter By Price:</Typography>
+
                         <div className="">
                             <RadioBox
                                 prices={prices}
@@ -111,9 +115,9 @@ const Home = () => {
                                 }
                             />
                         </div>
-                    </div>
-                </div>
-            </>
+                    </Grid>
+                </Grid>
+            </div>
         );
     };
 
@@ -124,15 +128,23 @@ const Home = () => {
                 {showError(error, error)}
                 {showSuccess(success, "Added to cart")}
             </div>
-            <div className="">
-                {products &&
-                    products.map((product) => (
-                        <ProductCard
-                            product={product}
-                            key={product._id}
-                            handleAddToCart={handleAddToCart(product)}
-                        />
-                    ))}
+            <div className="mb-10">
+                <Grid
+                    container
+                    // rowSpacing={1}
+                    columnSpacing={{ xs: 1, sm: 2, md: 0 }}
+                >
+                    {products &&
+                        products.map((product) => (
+                            <Grid item lg={3} md={6} sm={6} xs={12}>
+                                <ProductCard
+                                    product={product}
+                                    key={product._id}
+                                    handleAddToCart={handleAddToCart(product)}
+                                />
+                            </Grid>
+                        ))}
+                </Grid>
             </div>
         </Layout>
     );
