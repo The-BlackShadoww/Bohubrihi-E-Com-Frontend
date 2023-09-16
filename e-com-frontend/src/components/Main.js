@@ -18,6 +18,8 @@ import ProductDetails from "./home/ProductDetails";
 import Cart from "./order/Cart";
 import ShippingAddress from "./order/ShippingAddress";
 import Checkout from "./order/Checkout";
+//---------------------------------------------
+import Payment from "./order/Payment";
 
 const Main = () => {
     return (
@@ -50,6 +52,14 @@ const Main = () => {
                     element={
                         <PrivateRoute>
                             <ShippingAddress />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/payment"
+                    element={
+                        <PrivateRoute>
+                            <Payment />
                         </PrivateRoute>
                     }
                 />
